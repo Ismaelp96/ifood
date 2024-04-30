@@ -1,5 +1,17 @@
-import Image from "next/image";
+import CategoryList from "@/components/category-list/category-list";
+import HeaderComponent from "@/components/header";
+import SearchComponent from "@/components/ui/search-component";
+import BannerPromo from "@/components/banner-promo";
 
 export default function Home() {
-  return <h1>Hi</h1>;
+  return (
+    <>
+      <div className="container">
+        <HeaderComponent />
+        <SearchComponent />
+        <CategoryList />
+        <BannerPromo />
+      </div>
+    </>
+  );
 }
