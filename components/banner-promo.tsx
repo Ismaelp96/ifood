@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function BannerPromo() {
   return (
-    <div className="pt-6">
+    <div className="pb-6 pt-4">
       <Image
         width={300}
         height={150}
