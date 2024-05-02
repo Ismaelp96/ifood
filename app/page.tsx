@@ -1,11 +1,12 @@
 import CategoryList from "@/components/category-list/category-list";
 import HeaderComponent from "@/components/header";
 import SearchComponent from "@/components/ui/search-component";
-import BannerPromo from "@/components/banner-promo";
+import BannerPizza from "@/components/banner-pizza";
 import ProductList from "@/components/product-list/product-list";
 import { Button } from "@/components/ui/button";
 import { ChevronRightIcon } from "lucide-react";
 import { db } from "@/lib/prisma";
+import BannerBurger from "@/components/banner-burger";
 
 export default async function Home() {
   const products = await db.product.findMany({
@@ -31,7 +32,7 @@ export default async function Home() {
       </div>
       <CategoryList />
       <div className="px-5">
-        <BannerPromo />
+        <BannerPizza />
       </div>
       <div>
         <div className="flex items-center justify-between px-5">
@@ -45,6 +46,9 @@ export default async function Home() {
           </Button>
         </div>
         <ProductList products={products} />
+      </div>
+      <div className="px-5">
+        <BannerBurger />
       </div>
     </>
   );
