@@ -43,11 +43,11 @@ export default function RestaurantItem({ restaurant }: RestaurantListProps) {
         </div>
         <button
           onClick={handleButton}
-          className="absolute right-2 top-2 flex items-center justify-center gap-0.5 rounded-full bg-black/60 p-2"
+          className="absolute right-2 top-2 flex items-center justify-center gap-0.5 rounded-full bg-black/40 p-2"
         >
           <HeartIcon
             className={cn(
-              "h-4 w-4  transition-all duration-300 hover:fill-primary hover:text-primary",
+              "h-4 w-4  transition-all duration-300 active:fill-primary active:text-primary",
               favority ? "fill-primary text-primary" : "fill-white text-white",
             )}
           />

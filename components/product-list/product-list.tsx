@@ -1,6 +1,10 @@
+"use client";
+
 import { Prisma } from "@prisma/client";
 import Image from "next/image";
 import { calculateProductTotalPrice, formatCurrency } from "@/lib/price";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type ProductListProps = {
   products: Prisma.ProductGetPayload<{
@@ -37,35 +41,42 @@ type ProductsItemProps = {
 };
 
 function ProductItem({ product }: ProductsItemProps) {
+  const router = useRouter();
+  const href = `/products/${product.id}`;
   return (
     <div className=" w-full min-w-[150px] space-y-2 ">
-      <div className="relative h-[150px] w-full rounded-lg">
-        <Image
-          src={product.imageUrl}
-          alt={product.name}
-          title={product.name}
-          fill
-          className="rounded-lg object-cover shadow-sm"
-        />
-        {product.discountPercentage && (
-          <div className="absolute left-2 top-2 flex items-center gap-0.5 rounded-full bg-primary px-2 py-[2px]">
-            <Image
-              src="/move-down.svg"
-              width={7}
-              height={9}
-              title="Seta para baixo"
-              alt="seta para baixo"
-            />
-            <span className="text-xs font-semibold text-white">
-              {product.discountPercentage}%
-            </span>
-          </div>
-        )}
-      </div>
+      <Link href={href}>
+        <div className="relative h-[150px] w-full rounded-lg">
+          <Image
+            src={product.imageUrl}
+            alt={product.name}
+            title={product.name}
+            fill
+            className="rounded-lg object-cover shadow-sm"
+          />
+          {product.discountPercentage && (
+            <div className="absolute left-2 top-2 flex items-center gap-0.5 rounded-full bg-primary px-2 py-[2px]">
+              <Image
+                src="/move-down.svg"
+                width={7}
+                height={9}
+                title="Seta para baixo"
+                alt="seta para baixo"
+              />
+              <span className="text-xs font-semibold text-white">
+                {product.discountPercentage}%
+              </span>
+            </div>
+          )}
+        </div>
+      </Link>
       <div className="flex flex-col">
-        <h4 className="truncate text-sm font-medium text-foreground">
-          {product.name}
-        </h4>
+        <Link href={`/products/${product.id}`}>
+          <h4 className="truncate text-sm font-medium text-foreground">
+            {product.name}
+          </h4>
+        </Link>
+
         <div className="flex items-center gap-1">
           <p className="font-semibold">
             {formatCurrency(calculateProductTotalPrice(product))}

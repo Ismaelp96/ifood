@@ -5,6 +5,8 @@ CREATE TABLE "Restaurant" (
     "imageUrl" TEXT NOT NULL,
     "deliveryFee" DECIMAL(10,2) NOT NULL,
     "deliveryTimeMinutes" INTEGER NOT NULL,
+    "rating" DECIMAL(10,2) NOT NULL,
+    "favorityRest" BOOLEAN NOT NULL,
 
     CONSTRAINT "Restaurant_pkey" PRIMARY KEY ("id")
 );
