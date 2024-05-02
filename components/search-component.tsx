@@ -1,6 +1,6 @@
 import { Search } from "lucide-react";
-import { Input } from "./input";
-import { Button } from "./button";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
 
 export default function SearchComponent() {
   return (
@@ -9,7 +9,7 @@ export default function SearchComponent() {
         placeholder="Buscar Restaurantes"
         className="h-10 rounded-r-none border-none text-base focus-visible:ring-transparent"
       />
-      <Button size="icon" className="absolute right-7">
+      <Button size="icon" className="absolute right-4">
         <Search className="h-5 w-5" />
       </Button>
     </div>
