@@ -127,6 +127,11 @@ export default function ProductDetails({
         <h3 className="font-semibold">Sucos</h3>
       </div>
       <ProductList products={complementaryProduct} />
+      <div className="mt-6 px-5">
+        <Button className="w-full text-sm font-semibold">
+          Adicionar à Sacola
+        </Button>
+      </div>
     </div>
   );
 }
