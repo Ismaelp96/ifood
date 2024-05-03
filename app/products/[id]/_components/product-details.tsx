@@ -43,7 +43,7 @@ export default function ProductDetails({
   };
 
   return (
-    <div className="relative w-full bg-white py-5 before:absolute before:-top-1.5 before:left-0 before:w-full  before:rounded-xl  before:border-t-8 before:border-solid before:border-t-white">
+    <div className="relative pb-6 pt-2 before:absolute before:-top-4 before:left-0 before:h-4 before:w-full before:rounded-t-3xl before:bg-white">
       <div className="mb-1 flex items-center gap-1.5 px-5">
         <Image
           src={restaurants.imageUrl}
@@ -96,7 +96,7 @@ export default function ProductDetails({
         </div>
       </div>
       <div className="px-5">
-        <div className="mb-6 flex w-full items-center justify-between rounded-sm border border-muted-foreground/40 px-5 py-2.5">
+        <div className="mb-6 flex w-full items-center justify-between rounded-sm border border-muted-foreground/40 py-2.5">
           <div className="flex flex-col items-center justify-center px-12">
             <div className="flex items-center gap-x-1">
               <h6 className="text-xs text-muted-foreground">Entrega</h6>

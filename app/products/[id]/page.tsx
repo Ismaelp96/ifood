@@ -21,20 +21,23 @@ export default async function ProductsPage({
     },
   });
 
+  if (!product) {
+    return notFound();
+  }
+
   const complementaries = await db.product.findMany({
     where: {
       category: {
         name: "Sucos",
+      },
+      restaurant: {
+        id: product?.restaurant.id,
       },
     },
     include: {
       restaurant: true,
     },
   });
-
-  if (!product) {
-    return notFound();
-  }
 
   return (
     <div className="">
