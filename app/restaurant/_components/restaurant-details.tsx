@@ -2,11 +2,40 @@
 
 import Image from "next/image";
 import { Prisma } from "@prisma/client";
-import { Bike, Clock } from "lucide-react";
-import { formatCurrency } from "@/lib/price";
+import DeliveryDetails from "@/components/delivery-details";
+import ProductList from "@/components/product-list/product-list";
 
 type RestaurantDetailsProps = {
-  restaurant: Prisma.RestaurantGetPayload<{}>;
+  restaurant: Prisma.RestaurantGetPayload<{
+    include: {
+      categories: {
+        orderBy: {
+          createdAt: "desc";
+        };
+        include: {
+          products: {
+            include: {
+              restaurant: {
+                select: {
+                  name: true;
+                };
+              };
+            };
+          };
+        };
+      };
+      products: {
+        take: 10;
+        include: {
+          restaurant: {
+            select: {
+              name: true;
+            };
+          };
+        };
+      };
+    };
+  }>;
 };
 
 export default function RestaurantDetails({
@@ -43,29 +72,30 @@ export default function RestaurantDetails({
         </div>
       </div>
       <div className="mt-6 px-5">
-        <div className="mb-6 flex w-full items-center justify-between rounded-sm border border-muted-foreground/40 py-2.5">
-          <div className="flex flex-col items-center justify-center px-12">
-            <div className="flex items-center gap-x-1">
-              <h6 className="text-xs text-muted-foreground">Entrega</h6>
-              <Bike className="h-3 w-3 text-muted-foreground" />
-            </div>
-            <span className="text-xs font-semibold text-foreground">
-              {Number(restaurant.deliveryFee) === 0
-                ? "Grátis"
-                : formatCurrency(Number(restaurant.deliveryFee))}
-            </span>
-          </div>
-          <div className="flex flex-col items-center justify-center px-12">
-            <div className="flex items-center gap-x-1">
-              <h6 className="text-xs text-muted-foreground">Entrega</h6>
-              <Clock className="h-3 w-3 text-muted-foreground" />
-            </div>
-            <span className="text-xs font-semibold text-foreground">
-              {restaurant.deliveryTimeMinutes}min
-            </span>
-          </div>
-        </div>
+        <DeliveryDetails restaurant={restaurant} />
       </div>
+      <div className="grid grid-cols-2 gap-x-4 gap-y-2 px-5">
+        {restaurant.categories.map((category) => (
+          <div
+            key={category.id}
+            className="flex items-center justify-center rounded-sm bg-[#F4F4F5] px-[56px] py-1"
+          >
+            <span className="text-xs text-muted-foreground">
+              {category.name}
+            </span>
+          </div>
+        ))}
+      </div>
+      <div className="mt-6 space-y-4">
+        <h2 className="px-5 font-semibold">Mais Pedidos</h2>
+        <ProductList products={restaurant.products} />
+      </div>
+      {restaurant.categories.map((category) => (
+        <div className="mt-6 space-y-4" key={category.id}>
+          <h2 className="px-5 font-semibold">{category.name}</h2>
+          <ProductList products={category.products} />
+        </div>
+      ))}
     </div>
   );
 }

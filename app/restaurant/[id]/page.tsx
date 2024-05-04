@@ -17,6 +17,37 @@ export default async function RestaurantPage({
     where: {
       id,
     },
+    include: {
+      categories: {
+        orderBy: {
+          createdAt: "desc",
+        },
+        include: {
+          products: {
+            where: {
+              restaurantId: id,
+            },
+            include: {
+              restaurant: {
+                select: {
+                  name: true,
+                },
+              },
+            },
+          },
+        },
+      },
+      products: {
+        take: 10,
+        include: {
+          restaurant: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      },
+    },
   });
 
   if (!restaurant) {
