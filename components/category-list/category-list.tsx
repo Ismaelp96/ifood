@@ -1,6 +1,7 @@
 import { db } from "@/lib/prisma";
 import { Category } from "@prisma/client";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function CategoryList() {
   const categories = await db.category.findMany({});
@@ -19,8 +20,12 @@ type CategoryItemProps = {
 };
 
 function CategoryItem({ category }: CategoryItemProps) {
+  const href = `/categories/${category.id}/products`;
   return (
-    <button className="flex w-full min-w-[160px] items-center justify-center gap-x-1 rounded-full bg-white py-2 shadow-md transition-all duration-300 hover:brightness-90">
+    <Link
+      href={href}
+      className="flex w-full min-w-[160px] items-center justify-center gap-x-1 rounded-full bg-white py-2 shadow-md transition-all duration-300 hover:brightness-90"
+    >
       <Image
         src={category.imageUrl}
         alt={category.name}
@@ -29,6 +34,6 @@ function CategoryItem({ category }: CategoryItemProps) {
         style={{ objectFit: "cover" }}
       />
       <p className="text-sm font-semibold">{category.name}</p>
-    </button>
+    </Link>
   );
 }

@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { calculateProductTotalPrice, formatCurrency } from "@/lib/price";
 import BagdeDiscount from "../bagde-descont";
+import { cn } from "@/lib/utils";
 
 type ProductListProps = {
   products: Prisma.ProductGetPayload<{
@@ -37,13 +38,14 @@ type ProductsItemProps = {
       };
     };
   }>;
+  className?: string;
 };
 
-function ProductItem({ product }: ProductsItemProps) {
+export function ProductItem({ product, className }: ProductsItemProps) {
   const href = `/products/${product.id}`;
 
   return (
-    <div className=" w-full min-w-[150px] space-y-2 ">
+    <div className={cn("w-full min-w-[150px] space-y-2", className)}>
       <Link href={href}>
         <div className="relative h-[150px] w-full rounded-lg">
           <Image
