@@ -9,6 +9,7 @@ import { db } from "@/lib/prisma";
 import RestaurantList from "@/components/restaurant-list/restaurant-list";
 import PromoBanner from "@/components/promo-banner";
 import Link from "next/link";
+import CartComponent from "@/components/cart";
 
 export default async function Home() {
   const products = await db.product.findMany({
