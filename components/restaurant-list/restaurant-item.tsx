@@ -10,18 +10,22 @@ import Link from "next/link";
 
 type RestaurantListProps = {
   restaurant: Restaurant;
+  className?: string;
 };
 
-export default function RestaurantItem({ restaurant }: RestaurantListProps) {
+export default function RestaurantItem({
+  restaurant,
+  className,
+}: RestaurantListProps) {
   const [favority, setFavority] = useState(false);
 
   function handleButton() {
     setFavority((prevLiked) => !prevLiked);
   }
-  const href = `/restaurant/${restaurant.id}`;
+  const href = `/restaurants/${restaurant.id}`;
   return (
     <Link href={href}>
-      <div className=" w-full min-w-[266px] space-y-3">
+      <div className={cn("w-full min-w-[266px] space-y-3", className)}>
         <div className="relative h-[136px] w-full rounded-lg">
           <Image
             src={restaurant.imageUrl}

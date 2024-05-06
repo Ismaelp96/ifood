@@ -3,6 +3,7 @@ import { db } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import RestaurantImage from "../_components/restaurant-image";
 import RestaurantDetails from "../_components/restaurant-details";
+import Navbar from "../_components/Navbar";
 
 type RestaurantPageProps = {
   params: {
@@ -56,6 +57,7 @@ export default async function RestaurantPage({
 
   return (
     <div>
+      <Navbar showFav={true} />
       <RestaurantImage restaurant={restaurant} />
       <RestaurantDetails restaurant={restaurant} />
     </div>
