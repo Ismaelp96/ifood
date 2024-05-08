@@ -16,7 +16,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import CartComponent from "@/components/cart";
-import { CartContext } from "@/providers/_context/cart-context";
+import { CartContext } from "@/context/cart-context";
 
 type ProductDetailsProps = {
   product: Prisma.ProductGetPayload<{
@@ -37,14 +37,33 @@ export default function ProductDetails({
 }: ProductDetailsProps) {
   const restaurants = product.restaurant;
 
+  const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] =
+    useState(false);
   const [quantity, setQuantity] = useState(1);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { addProductToCart, products } = useContext(CartContext);
 
-  const handleAddToCart = () => {
-    addProductToCart(product, quantity);
+  const addToCart = ({ emptyCart }: { emptyCart?: boolean }) => {
+    addProductToCart({ product: { ...product, quantity }, emptyCart });
     setIsCartOpen(true);
   };
+
+  const handleAddToCartClick = () => {
+    // VERIFICAR SE HÁ ALGUM PRODUTO DE OUTRO RESTAURANTE NO CARRINHO
+    const hasDifferentRestaurantProduct = products.some(
+      (cartProduct) => cartProduct.restaurantId !== product.restaurantId,
+    );
+
+    // SE HOUVER, ABRIR UM AVISO
+    if (hasDifferentRestaurantProduct) {
+      return setIsConfirmationDialogOpen(true);
+    }
+
+    addToCart({
+      emptyCart: false,
+    });
+  };
+
   const handleIncreaseQuantity = () =>
     setQuantity((currentState) => currentState + 1);
 
@@ -145,7 +164,7 @@ export default function ProductDetails({
         <div className="mt-6 px-5">
           <Button
             className="w-full text-sm font-semibold"
-            onClick={handleAddToCart}
+            onClick={handleAddToCartClick}
           >
             Adicionar ao carrinho
           </Button>
@@ -156,7 +175,7 @@ export default function ProductDetails({
           <SheetHeader>
             <SheetTitle className="text-left">Carrinho</SheetTitle>
           </SheetHeader>
-          <CartComponent />
+          <CartComponent setIsOpen={setIsCartOpen} />
         </SheetContent>
       </Sheet>
     </>

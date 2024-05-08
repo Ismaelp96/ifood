@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import { CartProvider } from "@/providers/_context/cart-context";
+import { CartProvider } from "@/context/cart-context";
 
 const poppins = Poppins({
   subsets: ["latin"],

@@ -3,7 +3,7 @@
 import { notFound, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Restaurant } from "@prisma/client";
-import { searchForResturant } from "@/actions/serach";
+import { searchForResturant } from "@/actions/search";
 import RestaurantItem from "@/components/restaurant-list/restaurant-item";
 import HeaderComponent from "@/components/header";
 
